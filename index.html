@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth select-none">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TZS Academy - Mobile Web & C++ Modding Platform</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            bg: '#0a0b10',
+                            card: '#121420',
+                            border: '#1f2438',
+                            cyan: '#00f3ff',
+                            purple: '#9d4edd',
+                            magenta: '#ff007f',
+                            dim: '#8f9ba8'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace']
+                    },
+                    boxShadow: {
+                        'neon-cyan': '0 0 15px rgba(0, 243, 255, 0.3)',
+                        'neon-purple': '0 0 15px rgba(157, 78, 221, 0.3)',
+                        'neon-glow': '0 0 25px rgba(0, 243, 255, 0.2)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0a0b10;
+            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .glass-panel {
+            background: rgba(18, 20, 32, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 243, 255, 0.15);
+        }
+        .glass-panel-purple {
+            background: rgba(18, 20, 32, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(157, 78, 221, 0.25);
+        }
+        .touch-active:active {
+            transform: scale(0.96);
+            opacity: 0.9;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="pb-24 pt-16 min-h-screen relative flex flex-col justify-between">
+
+    <!-- TOP HEADER BAR -->
+    <header class="fixed top-0 left-0 right-0 z-40 bg-cyber-bg/90 backdrop-blur-md border-b border-cyber-border px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-cyber-cyan to-cyber-purple flex items-center justify-center text-cyber-bg font-extrabold font-mono text-sm shadow-neon-cyan">
+                TZS
+            </div>
+            <div>
+                <h1 class="text-sm font-extrabold text-white leading-none tracking-wide">TZS ACADEMY</h1>
+                <p class="text-[9px] font-mono text-cyber-cyan leading-tight mt-0.5">Powered by TZS Team</p>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-1.5">
+            <a href="https://t.me/tzs_team_free" target="_blank" class="p-1.5 rounded-lg glass-panel text-sky-400 hover:text-white touch-active text-xs" title="Telegram Channel">
+                <i class="fa-brands fa-telegram"></i>
+            </a>
+            <a href="https://discord.gg/qgQ25eYPX" target="_blank" class="p-1.5 rounded-lg glass-panel text-indigo-400 hover:text-white touch-active text-xs" title="Discord Server">
+                <i class="fa-brands fa-discord"></i>
+            </a>
+            <a href="https://www.facebook.com/nhaijiel.jay.superales" target="_blank" class="p-1.5 rounded-lg glass-panel text-blue-500 hover:text-white touch-active text-xs" title="Facebook Account">
+                <i class="fa-brands fa-facebook"></i>
+            </a>
+
+            <!-- Admin Portal Trigger Button -->
+            <button onclick="openAdminLoginModal()" class="px-2 py-1 rounded-lg glass-panel text-cyber-purple hover:text-cyber-cyan touch-active text-xs flex items-center gap-1 border-cyber-purple/40">
+                <i class="fa-solid fa-user-shield"></i>
+                <span class="text-[10px] font-mono font-bold hidden xs:inline">Admin</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN APP CONTAINER -->
+    <main class="px-3.5 space-y-5 max-w-2xl mx-auto w-full">
+
+        <!-- 1. HOME TAB -->
+        <section id="home-section" class="app-section space-y-4">
+            <!-- Hero Banner -->
+            <div class="glass-panel p-4 rounded-2xl relative overflow-hidden border-cyber-cyan/30">
+                <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-cyber-cyan/10 rounded-full blur-2xl pointer-events-none"></div>
+                
+                <span class="px-2.5 py-0.5 rounded-full bg-cyber-cyan/10 border border-cyber-cyan/40 text-cyber-cyan font-mono text-[10px] font-bold inline-flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-cyber-cyan animate-ping"></span>
+                    100% FREE MOBILE LEARNING
+                </span>
+
+                <h2 class="text-xl font-black text-white mt-2 leading-tight">
+                    Master Web, Apps & <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan via-cyber-purple to-cyber-magenta">C++ Modding</span>
+                </h2>
+                <p class="text-xs text-cyber-dim mt-1 leading-relaxed">
+                    Zero-cost dev courses designed specifically for mobile devices (Termux, SPCK, Acode).
+                </p>
+
+                <!-- Quick Action Buttons -->
+                <div class="grid grid-cols-2 gap-2 mt-4">
+                    <button onclick="switchTab('courses')" class="py-2.5 px-3 rounded-xl bg-gradient-to-r from-cyber-cyan to-cyber-purple text-cyber-bg font-extrabold text-xs font-mono shadow-neon-cyan touch-active flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-graduation-cap"></i> Browse Tracks
+                    </button>
+                    <button onclick="switchTab('sandbox')" class="py-2.5 px-3 rounded-xl glass-panel border-cyber-cyan/40 text-cyber-cyan font-extrabold text-xs font-mono touch-active flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-terminal"></i> Open IDE Sandbox
+                    </button>
+                </div>
+            </div>
+
+            <!-- Lead Developer Spotlight Card -->
+            <div class="glass-panel-purple p-3.5 rounded-2xl flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyber-cyan to-cyber-purple p-0.5 shrink-0 shadow-neon-purple">
+                        <div class="w-full h-full bg-cyber-bg rounded-[9px] flex items-center justify-center text-cyber-cyan font-mono font-bold text-sm">
+                            <i class="fa-solid fa-code-commit"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-xs font-bold text-white flex items-center gap-1">
+                            Nhaijiel Jay Superales
+                            <span class="text-[9px] px-1.5 bg-cyber-purple/30 text-cyber-purple rounded font-mono font-bold">Owner</span>
+                        </div>
+                        <p class="text-[10px] text-cyber-dim">Lead Dev @ TZS Team • C++ & Fullstack</p>
+                    </div>
+                </div>
+                <a href="https://www.facebook.com/nhaijiel.jay.superales" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-blue-600/20 border border-blue-500/40 text-blue-400 text-[10px] font-mono font-bold touch-active flex items-center gap-1">
+                    <i class="fa-brands fa-facebook"></i> Contact
+                </a>
+            </div>
+
+            <!-- Quick Code Snippet Preview -->
+            <div class="glass-panel p-3 rounded-xl border-slate-800 font-mono text-[11px] space-y-2">
+                <div class="flex items-center justify-between text-cyber-dim text-[10px]">
+                    <span class="text-cyber-cyan font-bold"><i class="fa-solid fa-microchip"></i> C++ Memory Patch Snippet</span>
+                    <span>libil2cpp.so Hook</span>
+                </div>
+                <div class="bg-slate-950 p-2.5 rounded-lg text-slate-300 overflow-x-auto text-[10px]">
+                    <span class="text-purple-400">#include</span> <span class="text-green-400">&lt;substrate.h&gt;</span><br>
+                    <span class="text-blue-400">void</span> (*old_PlayerHealth)(<span class="text-blue-400">void</span>* instance);<br>
+                    <span class="text-blue-400">void</span> <span class="text-yellow-400">hk_PlayerHealth</span>(<span class="text-blue-400">void</span>* instance) {<br>
+                    &nbsp;&nbsp;<span class="text-cyber-dim">// God Mode Bypass Hook</span><br>
+                    &nbsp;&nbsp;<span class="text-blue-400">return</span>; <span class="text-cyber-dim">// Block health reduction</span><br>
+                    }
+                </div>
+            </div>
+
+            <!-- Course Categories Carousel -->
+            <div>
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-bold text-white uppercase tracking-wider font-mono">Featured Tracks</span>
+                    <button onclick="switchTab('courses')" class="text-[10px] font-mono text-cyber-cyan hover:underline">View All &rarr;</button>
+                </div>
+                <div class="flex space-x-2.5 overflow-x-auto no-scrollbar pb-1">
+                    <div onclick="openSyllabus('cpp-mod')" class="glass-panel p-3 rounded-xl min-w-[160px] border-cyber-magenta/30 shrink-0 touch-active cursor-pointer">
+                        <div class="text-cyber-magenta text-lg mb-1"><i class="fa-solid fa-bug"></i></div>
+                        <div class="text-xs font-bold text-white">C++ Modding</div>
+                        <div class="text-[9px] text-cyber-dim mt-0.5">libil2cpp & Hooks</div>
+                    </div>
+                    <div onclick="openSyllabus('imgui-menu')" class="glass-panel p-3 rounded-xl min-w-[160px] border-cyber-purple/30 shrink-0 touch-active cursor-pointer">
+                        <div class="text-cyber-purple text-lg mb-1"><i class="fa-solid fa-window-restore"></i></div>
+                        <div class="text-xs font-bold text-white">ImGui Overlay</div>
+                        <div class="text-[9px] text-cyber-dim mt-0.5">Android Mod Menus</div>
+                    </div>
+                    <div onclick="openSyllabus('web-fullstack')" class="glass-panel p-3 rounded-xl min-w-[160px] border-cyber-cyan/30 shrink-0 touch-active cursor-pointer">
+                        <div class="text-cyber-cyan text-lg mb-1"><i class="fa-solid fa-code"></i></div>
+                        <div class="text-xs font-bold text-white">Fullstack Web</div>
+                        <div class="text-[9px] text-cyber-dim mt-0.5">HTML, CSS, JS, Tailwind</div>
+                    </div>
+                    <div onclick="openSyllabus('tg-bot')" class="glass-panel p-3 rounded-xl min-w-[160px] border-sky-400/30 shrink-0 touch-active cursor-pointer">
+                        <div class="text-sky-400 text-lg mb-1"><i class="fa-solid fa-robot"></i></div>
+                        <div class="text-xs font-bold text-white">Python TG Bots</div>
+                        <div class="text-[9px] text-cyber-dim mt-0.5">Termux 24/7 Hosting</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. COURSES TAB -->
+        <section id="courses-section" class="app-section space-y-3.5 hidden">
+            <div>
+                <div class="font-mono text-[10px] text-cyber-cyan uppercase tracking-widest">// Curriculum & Info</div>
+                <h2 class="text-xl font-extrabold text-white">Free Learning Tracks</h2>
+                <p class="text-xs text-cyber-dim mt-0.5">Comprehensive, 100% free courses designed for mobile and PC developers.</p>
+            </div>
+
+            <!-- FAQ & Platform Info Card -->
+            <div class="glass-panel p-3.5 rounded-2xl border-cyber-cyan/40 space-y-2.5 font-mono">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold text-cyber-cyan flex items-center gap-1.5">
+                        <i class="fa-solid fa-circle-info"></i> All About TZS Free Courses
+                    </span>
+                    <span class="text-[9px] px-2 py-0.5 rounded bg-cyber-cyan/20 text-cyber-cyan font-bold">100% FREE</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2 text-[10px]">
+                    <div class="p-2 rounded-lg bg-slate-950 border border-slate-800">
+                        <div class="font-bold text-white mb-0.5"><i class="fa-solid fa-mobile-screen text-cyber-cyan"></i> PC Required?</div>
+                        <div class="text-cyber-dim">No! Optimized for Android phones (Termux, SPCK, Acode).</div>
+                    </div>
+                    <div class="p-2 rounded-lg bg-slate-950 border border-slate-800">
+                        <div class="font-bold text-white mb-0.5"><i class="fa-solid fa-certificate text-cyber-purple"></i> Badges?</div>
+                        <div class="text-cyber-dim">Earn verified developer roles in Telegram & Discord.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Category Tags -->
+            <div class="flex space-x-1.5 overflow-x-auto no-scrollbar py-1 text-[11px] font-mono">
+                <button onclick="filterCourses('all')" class="course-filter-btn px-3 py-1 rounded-lg bg-cyber-cyan text-cyber-bg font-bold shrink-0">All</button>
+                <button onclick="filterCourses('modding')" class="course-filter-btn px-3 py-1 rounded-lg glass-panel text-cyber-dim shrink-0">C++ Modding</button>
+                <button onclick="filterCourses('web')" class="course-filter-btn px-3 py-1 rounded-lg glass-panel text-cyber-dim shrink-0">Web Dev</button>
+                <button onclick="filterCourses('app')" class="course-filter-btn px-3 py-1 rounded-lg glass-panel text-cyber-dim shrink-0">App Dev</button>
+                <button onclick="filterCourses('bot')" class="course-filter-btn px-3 py-1 rounded-lg glass-panel text-cyber-dim shrink-0">Bots</button>
+            </div>
+
+            <!-- Courses Container Grid -->
+            <div id="courses-grid" class="space-y-2.5">
+                <!-- Rendered dynamically -->
+            </div>
+
+            <!-- Detailed FAQ Accordion -->
+            <div class="glass-panel p-4 rounded-2xl border-slate-800 space-y-3 font-mono">
+                <h3 class="font-bold text-white text-xs uppercase tracking-wider text-cyber-purple">// Frequently Asked Questions</h3>
+                <div class="space-y-2 text-xs">
+                    <details class="bg-slate-950 p-2.5 rounded-xl border border-slate-800 group">
+                        <summary class="font-bold text-slate-200 cursor-pointer flex justify-between items-center text-[11px]">
+                            Are these courses really 100% free with no hidden fees?
+                            <i class="fa-solid fa-chevron-down text-cyber-dim text-[10px] group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <p class="text-cyber-dim text-[10px] mt-2 leading-relaxed border-t border-slate-800/80 pt-2">
+                            Yes! All courses, code templates, offset patches, and mobile setup guides are sponsored by the TZS Team and Lead Developer Nhaijiel Jay Superales.
+                        </p>
+                    </details>
+
+                    <details class="bg-slate-950 p-2.5 rounded-xl border border-slate-800 group">
+                        <summary class="font-bold text-slate-200 cursor-pointer flex justify-between items-center text-[11px]">
+                            How do I get source codes, offsets, and C++ mod templates?
+                            <i class="fa-solid fa-chevron-down text-cyber-dim text-[10px] group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <p class="text-cyber-dim text-[10px] mt-2 leading-relaxed border-t border-slate-800/80 pt-2">
+                            You can request custom offsets, source codes, or technical assistance directly through the <button onclick="switchTab('community')" class="text-cyber-cyan underline">Community Hub Request Form</button> or by joining our official <a href="https://t.me/tzs_team_free" target="_blank" class="text-sky-400 underline">Telegram Channel</a>.
+                        </p>
+                    </details>
+
+                    <details class="bg-slate-950 p-2.5 rounded-xl border border-slate-800 group">
+                        <summary class="font-bold text-slate-200 cursor-pointer flex justify-between items-center text-[11px]">
+                            What apps do I need to install on my phone?
+                            <i class="fa-solid fa-chevron-down text-cyber-dim text-[10px] group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <p class="text-cyber-dim text-[10px] mt-2 leading-relaxed border-t border-slate-800/80 pt-2">
+                            For Web & App Dev: <span class="text-cyber-cyan">SPCK Code Editor</span> or <span class="text-cyber-cyan">Acode</span>.<br>
+                            For C++ Modding & Python Bots: <span class="text-cyber-cyan">Termux (F-Droid version)</span> with GCC/Clang and Python installed.
+                        </p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. SANDBOX TAB -->
+        <section id="sandbox-section" class="app-section space-y-3 hidden">
+            <div>
+                <div class="font-mono text-[10px] text-cyber-cyan uppercase tracking-widest">// Mobile Code Editor</div>
+                <h2 class="text-xl font-extrabold text-white">Live Web IDE Sandbox</h2>
+            </div>
+
+            <div class="glass-panel rounded-2xl border-cyber-cyan/40 overflow-hidden flex flex-col">
+                <!-- Sandbox Tabs Header -->
+                <div class="flex items-center justify-between border-b border-cyber-border bg-slate-950 px-2 py-1.5 font-mono text-xs">
+                    <div class="flex items-center space-x-1">
+                        <button onclick="switchSandboxEditor('html')" id="tab-html" class="px-2.5 py-1 text-cyber-cyan border-b-2 border-cyber-cyan font-bold">HTML</button>
+                        <button onclick="switchSandboxEditor('css')" id="tab-css" class="px-2.5 py-1 text-cyber-dim hover:text-white">CSS</button>
+                        <button onclick="switchSandboxEditor('js')" id="tab-js" class="px-2.5 py-1 text-cyber-dim hover:text-white">JS</button>
+                        <button onclick="switchSandboxEditor('preview')" id="tab-preview" class="px-2.5 py-1 text-cyber-purple hover:text-white font-bold flex items-center gap-1">
+                            <i class="fa-solid fa-play text-[9px]"></i> Preview
+                        </button>
+                    </div>
+                    <button onclick="resetSandbox()" class="p-1 text-cyber-dim hover:text-red-400 text-xs" title="Reset Code">
+                        <i class="fa-solid fa-rotate-left"></i>
+                    </button>
+                </div>
+
+                <!-- Touch Helper Bar -->
+                <div class="bg-slate-900 border-b border-slate-800 px-2 py-1 flex items-center space-x-1.5 overflow-x-auto no-scrollbar font-mono text-xs text-cyber-cyan">
+                    <button onclick="insertCodeSymbol('<')" class="px-2 py-0.5 bg-slate-950 rounded border border-slate-800 touch-active">&lt;</button>
+                    <button onclick="insertCodeSymbol('>')" class="px-2 py-0.5 bg-slate-950 rounded border border-slate-800 touch-active">&gt;</button>
+                    <button onclick="insertCodeSymbol('/')" class="px-2 py-0.5 bg-slate-950 rounded border border-slate-800 touch-active">/</button>
+                    <button onclick="insertCodeSymbol('{')" class="px-2 py-0.5 bg-slate-950 rounded border border-slate-800 touch-active">{</button>
+                    <button onclick="insertCodeSymbol('}')" class="px-2 py-0.5 bg-slate-950 rounded border border-slate-800 touch-active">}</button>
+                    <button onclick="insertCodeSymbol('(')" class="px-2 py-0.5 bg-slate-950 rounded border border-slate-800 touch-active">(</button>
+                    <button onclick="insertCodeSymbol(')')" class="px-2 py-0.5 bg-slate-950 rounded border border-slate-800 touch-active">)</button>
+                    <button onclick="insertCodeSymbol(';')" class="px-2 py-0.5 bg-slate-950 rounded border border-slate-800 touch-active">;</button>
+                </div>
+
+                <!-- Editors Container -->
+                <div class="relative min-h-[300px] h-[50vh]">
+                    <textarea id="sandbox-html-input" spellcheck="false" class="w-full h-full p-3 bg-slate-950 text-slate-200 font-mono text-xs focus:outline-none resize-none border-none" placeholder="HTML code here..."></textarea>
+                    <textarea id="sandbox-css-input" spellcheck="false" class="w-full h-full p-3 bg-slate-950 text-slate-200 font-mono text-xs focus:outline-none resize-none border-none hidden" placeholder="CSS code here..."></textarea>
+                    <textarea id="sandbox-js-input" spellcheck="false" class="w-full h-full p-3 bg-slate-950 text-slate-200 font-mono text-xs focus:outline-none resize-none border-none hidden" placeholder="JavaScript code here..."></textarea>
+                    <iframe id="sandbox-preview-frame" class="w-full h-full bg-white hidden border-none"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. PATH FINDER QUIZ TAB -->
+        <section id="quiz-section" class="app-section space-y-3.5 hidden">
+            <div>
+                <div class="font-mono text-[10px] text-cyber-cyan uppercase tracking-widest">// Assessment</div>
+                <h2 class="text-xl font-extrabold text-white">Find Your Dev Path</h2>
+            </div>
+
+            <div class="glass-panel p-4 rounded-2xl border-cyber-purple/30 space-y-4">
+                <div id="quiz-step-1" class="space-y-3">
+                    <span class="text-xs font-mono text-cyber-purple font-bold">Step 1 of 2: What is your primary device?</span>
+                    <div class="space-y-2">
+                        <button onclick="selectQuizStep1('mobile')" class="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 hover:border-cyber-cyan text-left text-xs font-mono flex items-center justify-between touch-active">
+                            <span>📱 Android Phone / Tablet (Termux / SPCK)</span>
+                            <i class="fa-solid fa-chevron-right text-cyber-dim"></i>
+                        </button>
+                        <button onclick="selectQuizStep1('pc')" class="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 hover:border-cyber-cyan text-left text-xs font-mono flex items-center justify-between touch-active">
+                            <span>💻 PC / Laptop (VS Code)</span>
+                            <i class="fa-solid fa-chevron-right text-cyber-dim"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="quiz-step-2" class="space-y-3 hidden">
+                    <span class="text-xs font-mono text-cyber-cyan font-bold">Step 2 of 2: What do you want to build first?</span>
+                    <div class="space-y-2">
+                        <button onclick="finishQuiz('modding')" class="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 hover:border-cyber-cyan text-left text-xs font-mono flex items-center justify-between touch-active">
+                            <span>🎮 C++ Game Mods & ImGui Overlays</span>
+                            <i class="fa-solid fa-check text-cyber-cyan"></i>
+                        </button>
+                        <button onclick="finishQuiz('web')" class="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 hover:border-cyber-cyan text-left text-xs font-mono flex items-center justify-between touch-active">
+                            <span>🌐 Websites & Web Applications</span>
+                            <i class="fa-solid fa-check text-cyber-cyan"></i>
+                        </button>
+                        <button onclick="finishQuiz('bot')" class="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 hover:border-cyber-cyan text-left text-xs font-mono flex items-center justify-between touch-active">
+                            <span>🤖 Telegram Bots & Automation</span>
+                            <i class="fa-solid fa-check text-cyber-cyan"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="quiz-result" class="hidden p-3.5 rounded-xl bg-cyber-bg border border-cyber-cyan/50 space-y-2 text-xs">
+                    <div class="font-bold text-cyber-cyan font-mono" id="quiz-recommended-title">Recommended Track</div>
+                    <p class="text-cyber-dim text-[11px]" id="quiz-recommended-desc"></p>
+                    <button onclick="switchTab('courses')" class="w-full py-2 rounded-lg bg-cyber-cyan text-cyber-bg font-bold font-mono mt-2 touch-active">
+                        Open Recommended Course
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. COMMUNITY & ADMIN HUB TAB -->
+        <section id="community-section" class="app-section space-y-4 hidden">
+            <div>
+                <div class="font-mono text-[10px] text-cyber-cyan uppercase tracking-widest">// TZS Hub</div>
+                <h2 class="text-xl font-extrabold text-white">Community & Admin Portal</h2>
+                <p class="text-xs text-cyber-dim mt-0.5">Connect with TZS devs or submit applications directly to the team.</p>
+            </div>
+
+            <!-- Founder & Lead Developer Profile Card -->
+            <div class="glass-panel-purple p-4 rounded-2xl border border-cyber-purple/40 relative overflow-hidden">
+                <div class="flex items-center space-x-3 mb-3">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-cyber-cyan via-cyber-purple to-cyber-magenta p-0.5 shadow-neon-purple shrink-0">
+                        <div class="w-full h-full bg-cyber-bg rounded-[10px] flex items-center justify-center text-cyber-cyan font-mono font-bold text-lg">
+                            <i class="fa-solid fa-user-gear"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-1.5">
+                            <h3 class="font-extrabold text-white text-sm">Nhaijiel Jay Superales</h3>
+                            <span class="px-1.5 py-0.5 rounded bg-cyber-cyan/20 text-cyber-cyan font-mono text-[9px] font-bold">Owner</span>
+                        </div>
+                        <p class="text-[10px] text-cyber-dim">Lead Developer & Creator of TZS Team Free Academy</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://www.facebook.com/nhaijiel.jay.superales" target="_blank" class="p-2.5 rounded-xl bg-blue-600/20 border border-blue-500/40 hover:bg-blue-600/30 text-blue-400 flex items-center justify-between text-xs font-mono font-bold touch-active">
+                        <span class="flex items-center gap-1.5"><i class="fa-brands fa-facebook"></i> Facebook</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
+                    </a>
+                    <button onclick="openAdminLoginModal()" class="p-2.5 rounded-xl bg-cyber-purple/20 border border-cyber-purple/40 hover:bg-cyber-purple/30 text-cyber-cyan flex items-center justify-between text-xs font-mono font-bold touch-active">
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-shield-halved"></i> Admin Portal</span>
+                        <i class="fa-solid fa-key text-[9px]"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- PUBLIC STUDENT APPLICATION & REQUEST FORM -->
+            <div class="glass-panel p-4 rounded-2xl border-cyber-cyan/30 space-y-3">
+                <div>
+                    <span class="text-xs font-mono text-cyber-cyan font-bold flex items-center gap-1.5">
+                        <i class="fa-solid fa-paper-plane text-cyber-purple"></i> Submit Application / Course Request
+                    </span>
+                    <p class="text-[10px] text-cyber-dim mt-0.5">Apply for TZS dev team, request custom topics, or ask for C++ help.</p>
+                </div>
+
+                <form id="publicRequestForm" onsubmit="handlePublicFormSubmit(event)" class="space-y-2.5 text-xs font-mono">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <div>
+                            <label class="text-[10px] text-cyber-dim mb-1 block">Full Name / Alias *</label>
+                            <input type="text" id="reqName" required placeholder="e.g. Alex Cyber" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-white focus:outline-none focus:border-cyber-cyan">
+                        </div>
+                        <div>
+                            <label class="text-[10px] text-cyber-dim mb-1 block">Telegram / Contact Link *</label>
+                            <input type="text" id="reqContact" required placeholder="@username or Facebook profile link" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-white focus:outline-none focus:border-cyber-cyan">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <div>
+                            <label class="text-[10px] text-cyber-dim mb-1 block">Target Track / Purpose *</label>
+                            <select id="reqTrack" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-cyber-cyan focus:outline-none focus:border-cyber-cyan">
+                                <option value="C++ Modding">🎮 C++ Modding & Hooking</option>
+                                <option value="ImGui Menu">🛠️ ImGui Floating Mod Menu</option>
+                                <option value="Web Development">🌐 Fullstack Web Dev</option>
+                                <option value="Mobile App Dev">📱 React Native / Flutter App</option>
+                                <option value="Telegram Bot">🤖 Python Telegram Bot</option>
+                                <option value="Team Join">⚡ TZS Official Team Application</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-[10px] text-cyber-dim mb-1 block">Coding Level</label>
+                            <select id="reqExperience" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-cyber-dim focus:outline-none focus:border-cyber-cyan">
+                                <option value="Complete Beginner">Complete Beginner</option>
+                                <option value="Basic (Editing Scripts)">Basic (Editing Scripts)</option>
+                                <option value="Intermediate">Intermediate Developer</option>
+                                <option value="Advanced">Advanced Modder / Coder</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="text-[10px] text-cyber-dim mb-1 block">Message / Resume / Request Details *</label>
+                        <textarea id="reqMessage" rows="2" required placeholder="Describe your background, project idea, or why you want to join..." class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-white focus:outline-none focus:border-cyber-cyan resize-none"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-cyber-cyan to-cyber-purple text-cyber-bg font-bold shadow-neon-cyan touch-active flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i> Submit Application to Admin
+                    </button>
+                </form>
+            </div>
+
+            <!-- Social Action Links Grid -->
+            <div class="grid grid-cols-1 gap-2">
+                <a href="https://t.me/tzs_team_free" target="_blank" class="p-3 rounded-xl glass-panel border-sky-400/40 hover:bg-sky-500/10 flex items-center justify-between text-xs font-mono touch-active">
+                    <div class="flex items-center space-x-2.5">
+                        <i class="fa-brands fa-telegram text-sky-400 text-lg"></i>
+                        <div>
+                            <div class="font-bold text-white">Official Telegram Channel</div>
+                            <div class="text-[10px] text-cyber-dim">t.me/tzs_team_free</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-cyber-dim text-xs"></i>
+                </a>
+
+                <a href="https://discord.gg/qgQ25eYPX" target="_blank" class="p-3 rounded-xl glass-panel border-indigo-400/40 hover:bg-indigo-500/10 flex items-center justify-between text-xs font-mono touch-active">
+                    <div class="flex items-center space-x-2.5">
+                        <i class="fa-brands fa-discord text-indigo-400 text-lg"></i>
+                        <div>
+                            <div class="font-bold text-white">TZS Community Discord</div>
+                            <div class="text-[10px] text-cyber-dim">discord.gg/qgQ25eYPX</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-cyber-dim text-xs"></i>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- SYLLABUS MODAL -->
+    <div id="syllabusModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4">
+        <div class="glass-panel-purple w-full max-w-md rounded-t-2xl sm:rounded-2xl p-4 space-y-3 max-h-[85vh] overflow-y-auto border-cyber-purple/50 shadow-neon-purple relative">
+            <button onclick="closeSyllabus()" class="absolute top-3 right-3 w-7 h-7 rounded-full bg-slate-800 text-cyber-dim flex items-center justify-center text-xs">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div id="syllabusModalContent">
+                <!-- Injected dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN LOGIN MODAL -->
+    <div id="adminLoginModal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="glass-panel-purple rounded-2xl max-w-sm w-full p-5 border border-cyber-purple/50 shadow-neon-purple relative">
+            <button onclick="closeAdminLoginModal()" class="absolute top-3 right-3 w-7 h-7 rounded-full bg-slate-800 text-cyber-dim flex items-center justify-center text-xs">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-center mb-4">
+                <div class="w-12 h-12 rounded-xl bg-cyber-purple/20 border border-cyber-purple text-cyber-cyan flex items-center justify-center mx-auto text-xl mb-2 shadow-neon-purple">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <h3 class="font-extrabold text-white text-base font-mono">TZS Admin Authentication</h3>
+                <p class="text-[11px] text-cyber-dim mt-0.5">Enter security key to access submissions & dev resume.</p>
+            </div>
+
+            <form onsubmit="handleAdminLogin(event)" class="space-y-3 font-mono text-xs">
+                <div>
+                    <label class="text-[10px] text-cyber-dim mb-1 block">Admin Security Passcode</label>
+                    <input type="password" id="adminPassInput" required placeholder="" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-cyber-cyan focus:outline-none focus:border-cyber-purple">
+                </div>
+                <button type="submit" class="w-full py-2.5 rounded-xl font-bold bg-cyber-purple hover:bg-purple-600 text-white shadow-neon-purple touch-active flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-key"></i> Authenticate Access
+                </button>
+            </form>
+            <div class="mt-3 text-center text-[10px] font-mono text-cyber-dim">
+                Default key: <span class="text-cyber-cyan">09552945898</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN FULL DASHBOARD MODAL -->
+    <div id="adminDashboardModal" class="fixed inset-0 z-50 hidden bg-black/90 backdrop-blur-md flex items-center justify-center p-2 sm:p-4">
+        <div class="glass-panel-purple rounded-2xl max-w-3xl w-full h-[90vh] flex flex-col overflow-hidden border border-cyber-cyan/40 shadow-neon-glow">
+            
+            <!-- Dashboard Header -->
+            <div class="p-3.5 border-b border-cyber-cyan/20 flex items-center justify-between bg-cyber-bg">
+                <div class="flex items-center gap-2">
+                    <div class="px-2 py-1 rounded bg-cyber-cyan/20 border border-cyber-cyan/40 text-cyber-cyan font-mono text-[10px] font-bold">
+                        <i class="fa-solid fa-shield-halved"></i> TZS ADMIN PORTAL
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="switchAdminTab('requests')" id="adminTab-requests" class="px-2.5 py-1 rounded text-[11px] font-mono font-bold bg-cyber-cyan/20 text-cyber-cyan border border-cyber-cyan/30 touch-active">
+                        Requests (<span id="reqCountBadge">0</span>)
+                    </button>
+                    <button onclick="switchAdminTab('resume')" id="adminTab-resume" class="px-2.5 py-1 rounded text-[11px] font-mono text-cyber-dim hover:text-white touch-active">
+                        Dev Resume
+                    </button>
+                    <button onclick="closeAdminDashboard()" class="w-7 h-7 rounded-full bg-slate-800 text-cyber-dim flex items-center justify-center text-xs">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dashboard Content Container -->
+            <div class="p-3 sm:p-5 overflow-y-auto flex-grow space-y-4">
+                
+                <!-- SECTION 1: USER REQUEST FORMS & APPLICATIONS -->
+                <div id="adminSection-requests" class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="font-extrabold text-white text-base font-mono">Incoming Applications & Requests</h3>
+                            <p class="text-[11px] text-cyber-dim">Review, approve, or reject user course requests and team join forms.</p>
+                        </div>
+                        <button onclick="clearAllRequests()" class="px-2.5 py-1 rounded bg-red-500/20 border border-red-500/40 text-red-400 text-[10px] font-mono hover:bg-red-500/30 touch-active">
+                            Clear All
+                        </button>
+                    </div>
+
+                    <!-- Filter buttons -->
+                    <div class="flex items-center space-x-2 font-mono text-[10px]">
+                        <button onclick="filterAdminRequests('all')" class="px-2.5 py-1 rounded bg-slate-800 text-cyber-cyan border border-cyber-cyan/40">All</button>
+                        <button onclick="filterAdminRequests('Pending')" class="px-2.5 py-1 rounded bg-slate-800 text-yellow-400">Pending</button>
+                        <button onclick="filterAdminRequests('Approved')" class="px-2.5 py-1 rounded bg-slate-800 text-green-400">Approved</button>
+                        <button onclick="filterAdminRequests('Rejected')" class="px-2.5 py-1 rounded bg-slate-800 text-red-400">Rejected</button>
+                    </div>
+
+                    <!-- Requests List Container -->
+                    <div id="adminRequestsList" class="space-y-2.5">
+                        <!-- Rendered dynamically -->
+                    </div>
+                </div>
+
+                <!-- SECTION 2: DEVELOPER RESUME VIEWER -->
+                <div id="adminSection-resume" class="hidden space-y-4">
+                    <div class="glass-panel p-4 rounded-xl border border-cyber-cyan/40 space-y-3">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h3 class="font-mono font-extrabold text-lg text-white">Nhaijiel Jay Superales</h3>
+                                <div class="text-xs font-mono text-cyber-cyan font-bold">Owner & Lead Developer @ TZS Team</div>
+                                <div class="text-[11px] text-cyber-dim">Specialized in C++ Game Modding, Android NDK, Substrate Hooks, & Web Systems</div>
+                            </div>
+                            <a href="https://www.facebook.com/nhaijiel.jay.superales" target="_blank" class="px-3 py-1.5 rounded-lg bg-blue-600/30 text-blue-400 border border-blue-500/50 text-xs font-mono font-bold flex items-center gap-1.5">
+                                <i class="fa-brands fa-facebook"></i> Facebook
+                            </a>
+                        </div>
+
+                        <hr class="border-slate-800"/>
+
+                        <!-- Technical Skills Badges -->
+                        <div>
+                            <div class="text-[10px] font-mono text-cyber-purple uppercase font-bold mb-2">// Technical Expertise</div>
+                            <div class="flex flex-wrap gap-1.5 font-mono text-[10px]">
+                                <span class="px-2 py-0.5 rounded bg-cyber-cyan/15 border border-cyber-cyan/30 text-cyber-cyan">C++ Memory Patching</span>
+                                <span class="px-2 py-0.5 rounded bg-pink-500/15 border border-pink-500/30 text-pink-400">Substrate / Dobby Hooking</span>
+                                <span class="px-2 py-0.5 rounded bg-purple-500/15 border border-purple-500/30 text-purple-300">Dear ImGui Android Overlay</span>
+                                <span class="px-2 py-0.5 rounded bg-yellow-500/15 border border-yellow-500/30 text-yellow-300">Termux CLI / GCC</span>
+                                <span class="px-2 py-0.5 rounded bg-sky-500/15 border border-sky-500/30 text-sky-300">Python pyTelegramBotAPI</span>
+                                <span class="px-2 py-0.5 rounded bg-green-500/15 border border-green-500/30 text-green-300">HTML5 / Tailwind CSS / JS</span>
+                            </div>
+                        </div>
+
+                        <!-- Major Projects Portfolio -->
+                        <div>
+                            <div class="text-[10px] font-mono text-cyber-cyan uppercase font-bold mb-2">// Developed Systems & Projects</div>
+                            <div class="space-y-2 text-xs font-mono">
+                                <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800">
+                                    <div class="font-bold text-white flex items-center justify-between">
+                                        <span>TUNDRA-Z C++ Android Floating Mod Menu</span>
+                                        <span class="text-[9px] text-pink-400">Active</span>
+                                    </div>
+                                    <p class="text-[10px] text-cyber-dim mt-0.5">ImGui EGL menu compiled on Termux with real-time offset toggles and bypass hooks.</p>
+                                </div>
+
+                                <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800">
+                                    <div class="font-bold text-white flex items-center justify-between">
+                                        <span>TZS Free Academy Platform</span>
+                                        <span class="text-[9px] text-cyber-cyan">Live</span>
+                                    </div>
+                                    <p class="text-[10px] text-cyber-dim mt-0.5">Mobile-first interactive platform offering C++ modding, app development, and web coding tools.</p>
+                                </div>
+
+                                <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800">
+                                    <div class="font-bold text-white flex items-center justify-between">
+                                        <span>Termux Telegram Bot Manager</span>
+                                        <span class="text-[9px] text-purple-400">Deployment</span>
+                                    </div>
+                                    <p class="text-[10px] text-cyber-dim mt-0.5">Automated script for hosting Python Telegram bots 24/7 on Android devices without root.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTTOM APP NAVIGATION BAR -->
+    <nav class="fixed bottom-0 left-0 right-0 z-40 bg-cyber-bg/95 backdrop-blur-lg border-t border-cyber-border px-2 py-2">
+        <div class="max-w-2xl mx-auto grid grid-cols-5 gap-1 text-center font-mono">
+            <button onclick="switchTab('home')" id="nav-home" class="py-1 text-cyber-cyan flex flex-col items-center justify-center touch-active">
+                <i class="fa-solid fa-house text-sm"></i>
+                <span class="text-[9px] mt-1 font-bold">Home</span>
+            </button>
+            <button onclick="switchTab('courses')" id="nav-courses" class="py-1 text-cyber-dim hover:text-white flex flex-col items-center justify-center touch-active">
+                <i class="fa-solid fa-layer-group text-sm"></i>
+                <span class="text-[9px] mt-1">Courses</span>
+            </button>
+            <button onclick="switchTab('sandbox')" id="nav-sandbox" class="py-1 text-cyber-dim hover:text-white flex flex-col items-center justify-center touch-active">
+                <i class="fa-solid fa-code text-sm"></i>
+                <span class="text-[9px] mt-1">Sandbox</span>
+            </button>
+            <button onclick="switchTab('quiz')" id="nav-quiz" class="py-1 text-cyber-dim hover:text-white flex flex-col items-center justify-center touch-active">
+                <i class="fa-solid fa-compass text-sm"></i>
+                <span class="text-[9px] mt-1">Quiz</span>
+            </button>
+            <button onclick="switchTab('community')" id="nav-community" class="py-1 text-cyber-dim hover:text-white flex flex-col items-center justify-center touch-active">
+                <i class="fa-solid fa-users text-sm"></i>
+                <span class="text-[9px] mt-1">Hub</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- APP JAVASCRIPT LOGIC -->
+    <script>
+        // TAB SWITCHING SYSTEM
+        function switchTab(tabId) {
+            const sections = ['home', 'courses', 'sandbox', 'quiz', 'community'];
+            sections.forEach(s => {
+                const sec = document.getElementById(`${s}-section`);
+                const nav = document.getElementById(`nav-${s}`);
+                if(sec) sec.classList.add('hidden');
+                if(nav) {
+                    nav.classList.remove('text-cyber-cyan', 'font-bold');
+                    nav.classList.add('text-cyber-dim');
+                }
+            });
+
+            const activeSec = document.getElementById(`${tabId}-section`);
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            if(activeSec) activeSec.classList.remove('hidden');
+            if(activeNav) {
+                activeNav.classList.add('text-cyber-cyan', 'font-bold');
+                activeNav.classList.remove('text-cyber-dim');
+            }
+
+            if(tabId === 'courses') {
+                renderCourses('all');
+            }
+        }
+
+        // COURSES DATABASE WITH COMPREHENSIVE DETAILS
+        const coursesData = [
+            {
+                id: 'cpp-mod',
+                title: 'C++ Game Modding & Substrate Hooks',
+                category: 'modding',
+                badge: 'HOT',
+                badgeColor: 'border-pink-500/50 text-pink-400 bg-pink-500/10',
+                level: 'Intermediate to Advanced',
+                duration: '4-6 Weeks',
+                prereqs: 'Termux (F-Droid), C++ Basics, AxManager / Shizuku',
+                tools: 'Termux, GCC/Clang, Substrate/Dobby, IDA Pro / Il2CppDumper',
+                desc: 'Master Android native memory modding, offset patching in libil2cpp.so / libunity.so, and C++ MSHookFunction implementation.',
+                takeaways: [
+                    'Locate & dump offsets in Unity / Unreal Engine Android games',
+                    'Write Substrate and Dobby hook function templates in C++',
+                    'Implement Godmode, Speedhack, & Infinite Currency patches',
+                    'Compile native shared libraries (.so) directly on Termux without PC'
+                ],
+                icon: 'fa-bug text-pink-400',
+                syllabus: [
+                    'Module 1: Android NDK, Memory Architecture & Memory Offsets',
+                    'Module 2: Disassembling libil2cpp.so & Extracting Offsets',
+                    'Module 3: Substrate Hooking Templates & Function Overriding',
+                    'Module 4: Memory Patching (Hex Offsets vs Function Hooks)',
+                    'Module 5: Compiling .so Libraries on Termux CLI'
+                ]
+            },
+            {
+                id: 'imgui-menu',
+                title: 'ImGui Floating Mod Menu for Android',
+                category: 'modding',
+                badge: 'POPULAR',
+                badgeColor: 'border-purple-500/50 text-purple-400 bg-purple-500/10',
+                level: 'Intermediate',
+                duration: '3-4 Weeks',
+                prereqs: 'Basic C++, Termux or Android NDK',
+                tools: 'Dear ImGui, EGL / OpenGL ES 3.0, Termux, Android Studio',
+                desc: 'Build touch-interactive floating native mod menus with custom cyberpunk UI toggles, sliders, and color pickers.',
+                takeaways: [
+                    'Initialize EGL Native Surface & ImGui context on Android',
+                    'Process touch input events for floating overlay windows',
+                    'Connect UI switches directly to active C++ memory hooks',
+                    'Inject and launch floating menus in APKs'
+                ],
+                icon: 'fa-window-restore text-purple-400',
+                syllabus: [
+                    'Module 1: EGL Context & OpenGL ES 3.0 Setup',
+                    'Module 2: Dear ImGui Touch Navigation & UI Styling',
+                    'Module 3: Linking UI Toggles to Memory Patches',
+                    'Module 4: Packaging and Injecting Mod Menu into Target APK'
+                ]
+            },
+            {
+                id: 'web-fullstack',
+                title: 'Fullstack Web Dev (HTML5, Tailwind, JS)',
+                category: 'web',
+                badge: 'ESSENTIAL',
+                badgeColor: 'border-cyber-cyan/50 text-cyber-cyan bg-cyber-cyan/10',
+                level: 'Beginner to Intermediate',
+                duration: '3 Weeks',
+                prereqs: 'SPCK Code Editor or Acode (Mobile) / VS Code (PC)',
+                tools: 'SPCK Editor, Acode, Chrome DevTools, GitHub Pages',
+                desc: 'Learn to design and build high-performance dark/neon responsive web applications using modern web standards.',
+                takeaways: [
+                    'Create semantic HTML5 structures and responsive CSS flex/grid layouts',
+                    'Style complete apps rapidly using Tailwind CSS framework',
+                    'Master Async JavaScript, DOM Manipulation, Fetch API & LocalStorage',
+                    'Deploy full applications live to GitHub Pages or Netlify for free'
+                ],
+                icon: 'fa-code text-cyber-cyan',
+                syllabus: [
+                    'Module 1: Semantic HTML5 Structure & Mobile Viewports',
+                    'Module 2: Tailwind CSS Utility Classes & Dark Mode Styling',
+                    'Module 3: Vanilla JavaScript DOM Manipulation & Event Handling',
+                    'Module 4: Working with LocalStorage, JSON Data, & APIs',
+                    'Module 5: Free Web Hosting & Continuous Deployment'
+                ]
+            },
+            {
+                id: 'app-reactnative',
+                title: 'React Native & Flutter Mobile Apps',
+                category: 'app',
+                badge: 'HOT',
+                badgeColor: 'border-blue-500/50 text-blue-400 bg-blue-500/10',
+                level: 'Intermediate',
+                duration: '5 Weeks',
+                prereqs: 'JavaScript or Dart fundamentals',
+                tools: 'Expo Go, Node.js / Termux, VS Code or SPCK Editor',
+                desc: 'Build cross-platform native iOS and Android mobile applications from a single JavaScript or Dart codebase.',
+                takeaways: [
+                    'Understand React Native JSX components and Flexbox styling',
+                    'Implement touch gesture navigation and stack routing',
+                    'Connect RESTful APIs and real-time backend databases',
+                    'Generate standalone APK install files using Expo CLI'
+                ],
+                icon: 'fa-mobile-screen-button text-blue-400',
+                syllabus: [
+                    'Module 1: React Native Core Components & JSX Syntax',
+                    'Module 2: State Management (useState, useEffect, Context)',
+                    'Module 3: Screen Navigation & Dynamic Route Parameters',
+                    'Module 4: REST API Integration & Async Storage',
+                    'Module 5: Building APK Binaries with Expo CLI'
+                ]
+            },
+            {
+                id: 'tg-bot',
+                title: 'Python Telegram Bots & Termux Hosting',
+                category: 'bot',
+                badge: '24/7 FREE',
+                badgeColor: 'border-sky-500/50 text-sky-400 bg-sky-500/10',
+                level: 'Beginner',
+                duration: '2 Weeks',
+                prereqs: 'Termux on Android, Basic Python',
+                tools: 'Termux, Python 3, pyTelegramBotAPI, BotFather',
+                desc: 'Create automated Telegram administrative, modding, and utility bots in Python and run them 24/7 on Android Termux.',
+                takeaways: [
+                    'Create and configure bots via Telegram @BotFather',
+                    'Write event handlers for commands, text, and inline button menus',
+                    'Integrate external web APIs for automated data responses',
+                    'Run Python scripts 24/7 in background using Termux tmux/screen'
+                ],
+                icon: 'fa-robot text-sky-400',
+                syllabus: [
+                    'Module 1: Telegram Bot Token Setup & Environment Config',
+                    'Module 2: Handling Message Commands & Inline Keyboards',
+                    'Module 3: Building Admin Utilities & Custom API Integrations',
+                    'Module 4: 24/7 Termux Background Process & Screen Auto-Restart'
+                ]
+            }
+        ];
+
+        // RENDER COURSES FUNCTION
+        function renderCourses(filter = 'all') {
+            const grid = document.getElementById('courses-grid');
+            if(!grid) return;
+            grid.innerHTML = '';
+
+            const filtered = filter === 'all' 
+                ? coursesData 
+                : coursesData.filter(c => c.category === filter);
+
+            filtered.forEach(course => {
+                const card = document.createElement('div');
+                card.className = 'glass-panel p-3.5 rounded-2xl space-y-2 border-slate-800 hover:border-cyber-cyan/50 transition-colors';
+                card.innerHTML = `
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-center space-x-2.5">
+                            <div class="p-2 rounded-xl bg-slate-950 border border-slate-800 text-base">
+                                <i class="fa-solid ${course.icon}"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-extrabold text-white text-xs">${course.title}</h3>
+                                <div class="text-[9px] font-mono text-cyber-dim mt-0.5">${course.level} • ${course.duration}</div>
+                            </div>
+                        </div>
+                        <span class="px-2 py-0.5 rounded text-[9px] font-mono font-bold border ${course.badgeColor}">${course.badge}</span>
+                    </div>
+
+                    <p class="text-[10px] text-cyber-dim leading-relaxed">${course.desc}</p>
+
+                    <div class="flex items-center justify-between pt-1">
+                        <span class="text-[9px] font-mono text-cyber-cyan"><i class="fa-solid fa-screwdriver-wrench mr-1"></i>${course.tools.split(',')[0]}</span>
+                        <button onclick="openSyllabus('${course.id}')" class="px-3 py-1.5 rounded-lg bg-cyber-cyan/20 border border-cyber-cyan/40 text-cyber-cyan hover:bg-cyber-cyan hover:text-cyber-bg font-mono font-bold text-[10px] touch-active flex items-center gap-1">
+                            <span>Syllabus & Info</span>
+                            <i class="fa-solid fa-chevron-right text-[8px]"></i>
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterCourses(category) {
+            document.querySelectorAll('.course-filter-btn').forEach(btn => {
+                btn.classList.remove('bg-cyber-cyan', 'text-cyber-bg', 'font-bold');
+                btn.classList.add('glass-panel', 'text-cyber-dim');
+            });
+            event.target.classList.add('bg-cyber-cyan', 'text-cyber-bg', 'font-bold');
+            event.target.classList.remove('glass-panel', 'text-cyber-dim');
+            renderCourses(category);
+        }
+
+        // SYLLABUS MODAL LOGIC WITH COMPREHENSIVE INFORMATION
+        function openSyllabus(courseId) {
+            const course = coursesData.find(c => c.id === courseId);
+            if(!course) return;
+
+            const modalContent = document.getElementById('syllabusModalContent');
+            modalContent.innerHTML = `
+                <div class="space-y-3 font-mono">
+                    <div class="flex items-center space-x-2.5 border-b border-slate-800 pb-2">
+                        <i class="fa-solid ${course.icon} text-2xl"></i>
+                        <div>
+                            <h3 class="font-extrabold text-white text-sm">${course.title}</h3>
+                            <div class="flex items-center gap-2 text-[9px] mt-0.5">
+                                <span class="text-cyber-cyan font-bold">${course.level}</span>
+                                <span class="text-cyber-dim">• ${course.duration}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Prerequisites & Tools -->
+                    <div class="grid grid-cols-1 gap-1.5 text-[10px]">
+                        <div class="p-2 rounded bg-slate-950 border border-slate-800">
+                            <span class="text-cyber-purple font-bold">Prerequisites:</span>
+                            <p class="text-cyber-dim mt-0.5">${course.prereqs}</p>
+                        </div>
+                        <div class="p-2 rounded bg-slate-950 border border-slate-800">
+                            <span class="text-cyber-cyan font-bold">Tools Needed:</span>
+                            <p class="text-cyber-dim mt-0.5">${course.tools}</p>
+                        </div>
+                    </div>
+
+                    <!-- Key Takeaways -->
+                    <div>
+                        <div class="text-[10px] text-cyber-cyan font-bold uppercase mb-1.5">// What You Will Learn</div>
+                        <div class="space-y-1">
+                            ${course.takeaways.map(t => `<div class="text-[10px] text-slate-300 flex items-start gap-1.5"><i class="fa-solid fa-check text-green-400 text-[9px] mt-0.5 shrink-0"></i><span>${t}</span></div>`).join('')}
+                        </div>
+                    </div>
+
+                    <!-- Module Outline -->
+                    <div class="space-y-1.5 pt-1">
+                        <div class="text-[10px] text-cyber-purple font-bold uppercase">// Module Breakdown</div>
+                        ${course.syllabus.map(s => `<div class="p-2 rounded bg-slate-950 border border-slate-800 text-[11px] text-slate-300"><i class="fa-solid fa-angle-right text-cyber-cyan mr-1.5"></i>${s}</div>`).join('')}
+                    </div>
+
+                    <button onclick="switchTab('sandbox'); closeSyllabus();" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-cyber-cyan to-cyber-purple text-cyber-bg font-bold text-xs shadow-neon-cyan mt-2 touch-active">
+                        Open IDE Sandbox & Start Coding
+                    </button>
+                </div>
+            `;
+            document.getElementById('syllabusModal').classList.remove('hidden');
+        }
+
+        function closeSyllabus() {
+            document.getElementById('syllabusModal').classList.add('hidden');
+        }
+
+        // SANDBOX IDE LOGIC
+        let activeSandboxTab = 'html';
+        const defaultCode = {
+            html: `<div class="card">\n  <h2>TZS Academy Live</h2>\n  <p>Test your web code directly on phone!</p>\n  <button onclick="sayHi()">Tap Me</button>\n</div>`,
+            css: `body { background: #0a0b10; color: #fff; font-family: sans-serif; padding: 20px; }\n.card { background: #121420; padding: 15px; border-radius: 12px; border: 1px solid #00f3ff; text-align: center; }\nh2 { color: #00f3ff; margin-top: 0; }\nbutton { background: #9d4edd; color: #fff; border: none; padding: 8px 16px; border-radius: 8px; font-weight: bold; cursor: pointer; }`,
+            js: `function sayHi() {\n  alert('Welcome to TZS Academy Mobile IDE!');\n}`
+        };
+
+        function resetSandbox() {
+            document.getElementById('sandbox-html-input').value = defaultCode.html;
+            document.getElementById('sandbox-css-input').value = defaultCode.css;
+            document.getElementById('sandbox-js-input').value = defaultCode.js;
+            if(activeSandboxTab === 'preview') runSandboxCode();
+        }
+
+        function switchSandboxEditor(tab) {
+            activeSandboxTab = tab;
+            ['html', 'css', 'js', 'preview'].forEach(t => {
+                const el = document.getElementById(`sandbox-${t}-input`) || document.getElementById(`sandbox-${t}-frame`);
+                const tabBtn = document.getElementById(`tab-${t}`);
+                if(el) el.classList.add('hidden');
+                if(tabBtn) {
+                    tabBtn.classList.remove('text-cyber-cyan', 'border-b-2', 'border-cyber-cyan', 'font-bold');
+                    tabBtn.classList.add('text-cyber-dim');
+                }
+            });
+
+            const currentEl = document.getElementById(`sandbox-${tab}-input`) || document.getElementById(`sandbox-${tab}-frame`);
+            const currentBtn = document.getElementById(`tab-${tab}`);
+
+            if(currentEl) currentEl.classList.remove('hidden');
+            if(currentBtn) {
+                currentBtn.classList.add('text-cyber-cyan', 'border-b-2', 'border-cyber-cyan', 'font-bold');
+                currentBtn.classList.remove('text-cyber-dim');
+            }
+
+            if(tab === 'preview') {
+                runSandboxCode();
+            }
+        }
+
+        function runSandboxCode() {
+            const html = document.getElementById('sandbox-html-input').value;
+            const css = `<style>${document.getElementById('sandbox-css-input').value}</style>`;
+            const js = `<script>${document.getElementById('sandbox-js-input').value}<\/script>`;
+
+            const frame = document.getElementById('sandbox-preview-frame');
+            const doc = frame.contentDocument || frame.contentWindow.document;
+            doc.open();
+            doc.write(html + css + js);
+            doc.close();
+        }
+
+        function insertCodeSymbol(sym) {
+            if(activeSandboxTab === 'preview') return;
+            const activeInput = document.getElementById(`sandbox-${activeSandboxTab}-input`);
+            if(!activeInput) return;
+            const start = activeInput.selectionStart;
+            const end = activeInput.selectionEnd;
+            const val = activeInput.value;
+            activeInput.value = val.substring(0, start) + sym + val.substring(end);
+            activeInput.selectionStart = activeInput.selectionEnd = start + sym.length;
+            activeInput.focus();
+        }
+
+        // QUIZ LOGIC
+        let quizState = {};
+        function selectQuizStep1(device) {
+            quizState.device = device;
+            document.getElementById('quiz-step-1').classList.add('hidden');
+            document.getElementById('quiz-step-2').classList.remove('hidden');
+        }
+
+        function finishQuiz(track) {
+            quizState.track = track;
+            document.getElementById('quiz-step-2').classList.add('hidden');
+            
+            const resultBox = document.getElementById('quiz-result');
+            const title = document.getElementById('quiz-recommended-title');
+            const desc = document.getElementById('quiz-recommended-desc');
+
+            if(track === 'modding') {
+                title.innerText = 'Recommended Track: C++ Game Modding & ImGui';
+                desc.innerText = 'Learn offset patching, memory hooking in C++, and floating menu overlays on Android.';
+            } else if(track === 'web') {
+                title.innerText = 'Recommended Track: Fullstack Web Development';
+                desc.innerText = 'Build modern interactive websites with HTML5, Tailwind CSS, and JS.';
+            } else {
+                title.innerText = 'Recommended Track: Python Telegram Bots & Termux';
+                desc.innerText = 'Create 24/7 automated bots using Python and background Termux scripts.';
+            }
+
+            resultBox.classList.remove('hidden');
+        }
+
+        // LOCAL STORAGE USER REQUESTS SYSTEM
+        const initialRequests = [
+            {
+                id: 'req-1',
+                name: 'Alex Dev',
+                contact: '@alex_tzs',
+                track: 'C++ Modding',
+                experience: 'Basic (Editing Scripts)',
+                message: 'I want to learn how to patch offsets in libil2cpp.so for Unity game mods.',
+                status: 'Pending',
+                date: '2026-03-28'
+            },
+            {
+                id: 'req-2',
+                name: 'Angela Santos',
+                contact: 'fb.com/angela.santos',
+                track: 'Team Join',
+                experience: 'Intermediate',
+                message: 'Applying as a frontend developer for the TZS Team web projects.',
+                status: 'Approved',
+                date: '2026-03-27'
+            }
+        ];
+
+        function getRequests() {
+            const data = localStorage.getItem('tzs_requests');
+            if(!data) {
+                localStorage.setItem('tzs_requests', JSON.stringify(initialRequests));
+                return initialRequests;
+            }
+            return JSON.parse(data);
+        }
+
+        function saveRequests(requests) {
+            localStorage.setItem('tzs_requests', JSON.stringify(requests));
+            renderAdminRequests();
+        }
+
+        function handlePublicFormSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('reqName').value.trim();
+            const contact = document.getElementById('reqContact').value.trim();
+            const track = document.getElementById('reqTrack').value;
+            const exp = document.getElementById('reqExperience').value;
+            const msg = document.getElementById('reqMessage').value.trim();
+
+            if(!name || !contact || !msg) return;
+
+            const newReq = {
+                id: 'req-' + Date.now(),
+                name: name,
+                contact: contact,
+                track: track,
+                experience: exp,
+                message: msg,
+                status: 'Pending',
+                date: new Date().toISOString().split('T')[0]
+            };
+
+            const list = getRequests();
+            list.unshift(newReq);
+            saveRequests(list);
+
+            document.getElementById('publicRequestForm').reset();
+            alert('Your request/application has been submitted to the TZS Team Admin!');
+        }
+
+        // ADMIN MODAL & AUTHENTICATION
+        let adminPasskey = "Admin";
+        function openAdminLoginModal() {
+            document.getElementById('adminLoginModal').classList.remove('hidden');
+        }
+        function closeAdminLoginModal() {
+            document.getElementById('adminLoginModal').classList.add('hidden');
+        }
+
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            const input = document.getElementById('adminPassInput').value.trim();
+            if(input === adminPasskey) {
+                closeAdminLoginModal();
+                document.getElementById('adminPassInput').value = '';
+                openAdminDashboard();
+            } else {
+                alert('Invalid Admin Key! Passcode: admin123');
+            }
+        }
+
+        function openAdminDashboard() {
+            renderAdminRequests();
+            document.getElementById('adminDashboardModal').classList.remove('hidden');
+        }
+        function closeAdminDashboard() {
+            document.getElementById('adminDashboardModal').classList.add('hidden');
+        }
+
+        function switchAdminTab(tab) {
+            document.getElementById('adminSection-requests').classList.add('hidden');
+            document.getElementById('adminSection-resume').classList.add('hidden');
+
+            document.getElementById('adminTab-requests').classList.remove('bg-cyber-cyan/20', 'text-cyber-cyan', 'border', 'border-cyber-cyan/30');
+            document.getElementById('adminTab-resume').classList.remove('bg-cyber-cyan/20', 'text-cyber-cyan', 'border', 'border-cyber-cyan/30');
+            document.getElementById('adminTab-requests').classList.add('text-cyber-dim');
+            document.getElementById('adminTab-resume').classList.add('text-cyber-dim');
+
+            document.getElementById(`adminSection-${tab}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`adminTab-${tab}`);
+            activeBtn.classList.add('bg-cyber-cyan/20', 'text-cyber-cyan', 'border', 'border-cyber-cyan/30');
+            activeBtn.classList.remove('text-cyber-dim');
+        }
+
+        let currentAdminFilter = 'all';
+        function filterAdminRequests(status) {
+            currentAdminFilter = status;
+            renderAdminRequests();
+        }
+
+        function renderAdminRequests() {
+            const list = getRequests();
+            const container = document.getElementById('adminRequestsList');
+            if(!container) return;
+            document.getElementById('reqCountBadge').innerText = list.length;
+            container.innerHTML = '';
+
+            const filtered = currentAdminFilter === 'all'
+                ? list
+                : list.filter(r => r.status === currentAdminFilter);
+
+            if(filtered.length === 0) {
+                container.innerHTML = `<div class="text-center py-6 text-cyber-dim text-xs font-mono">No request submissions found.</div>`;
+                return;
+            }
+
+            filtered.forEach(req => {
+                const card = document.createElement('div');
+                card.className = 'glass-panel p-3 rounded-xl border border-slate-800 space-y-2 text-xs font-mono';
+                
+                let statusBadge = 'bg-yellow-500/20 text-yellow-400 border-yellow-500/40';
+                if(req.status === 'Approved') statusBadge = 'bg-green-500/20 text-green-400 border-green-500/40';
+                if(req.status === 'Rejected') statusBadge = 'bg-red-500/20 text-red-400 border-red-500/40';
+
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold text-white text-sm">${req.name}</span>
+                            <span class="px-2 py-0.5 rounded text-[9px] border ${statusBadge}">${req.status}</span>
+                        </div>
+                        <span class="text-[10px] text-cyber-dim">${req.date}</span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-1 text-[10px] text-cyber-dim">
+                        <div>Contact: <span class="text-cyber-cyan">${req.contact}</span></div>
+                        <div>Track: <span class="text-white">${req.track}</span></div>
+                        <div>Level: <span class="text-white">${req.experience}</span></div>
+                    </div>
+
+                    <div class="bg-slate-950 p-2 rounded text-[11px] text-slate-300 border border-slate-800">
+                        "${req.message}"
+                    </div>
+
+                    <div class="flex items-center justify-end space-x-2 pt-1">
+                        <button onclick="updateReqStatus('${req.id}', 'Approved')" class="px-2.5 py-1 rounded bg-green-500/20 border border-green-500/40 text-green-400 text-[10px] touch-active">Approve</button>
+                        <button onclick="updateReqStatus('${req.id}', 'Rejected')" class="px-2.5 py-1 rounded bg-yellow-500/20 border border-yellow-500/40 text-yellow-400 text-[10px] touch-active">Reject</button>
+                        <button onclick="deleteRequest('${req.id}')" class="px-2 py-1 rounded bg-red-500/20 border border-red-500/40 text-red-400 text-[10px] touch-active"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function updateReqStatus(id, newStatus) {
+            const list = getRequests();
+            const item = list.find(r => r.id === id);
+            if(item) {
+                item.status = newStatus;
+                saveRequests(list);
+            }
+        }
+
+        function deleteRequest(id) {
+            if(confirm('Delete this user request?')) {
+                const list = getRequests().filter(r => r.id !== id);
+                saveRequests(list);
+            }
+        }
+
+        function clearAllRequests() {
+            if(confirm('Are you sure you want to clear all requests?')) {
+                saveRequests([]);
+            }
+        }
+
+        // INITIALIZE APP ON LOAD
+        window.onload = function() {
+            renderCourses('all');
+            resetSandbox();
+            getRequests();
+        };
+    </script>
+</body>
+</html>
